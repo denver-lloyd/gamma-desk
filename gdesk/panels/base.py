@@ -37,6 +37,8 @@ class CheckMenu(QtWidgets.QMenu):
             action.setEnabled(enable_call())            
             
     def addAction(self, *args, **kwargs):
+        if "checkcall" in kwargs:
+            del kwargs["checkcall"]
         action = super().addAction(*args, **kwargs)
         if action is None: action = args[0]
         if not kwargs.get('checkcall', None) is None:

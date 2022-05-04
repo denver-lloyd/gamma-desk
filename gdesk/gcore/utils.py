@@ -27,7 +27,9 @@ def getMenuTrace(menu):
     """Return the current menu location as a list of strings"""
     menutrace = [menu.title().strip('&')]
     scan_action = menu.menuAction()
-    while not scan_action is None:
+    while scan_action is not None:
+        if not hasattr(scan_action, "associatedWidgets"):
+            continue
         aw = scan_action.associatedWidgets()
         if len(aw) > 0 and isinstance(aw[0], QtWidgets.QMenu):
             menu = aw[0]

@@ -284,7 +284,7 @@ def eventloop(shell, init_code=None, init_file=None, console_id=0, pictures=None
     # panid = qapp.mainWindow.newThread()
     qapp.mainWindow.show()
             
-    desktopGeometry = QDesktopWidget().availableGeometry()
+    desktopGeometry = QGuiApplication.primaryScreen().availableGeometry()
     qapp.mainWindow.resize(int(desktopGeometry.width()*3/5), int(desktopGeometry.height()*3/5))
     
     qtRectangle = qapp.mainWindow.frameGeometry()    
