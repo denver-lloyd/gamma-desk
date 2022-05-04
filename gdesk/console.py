@@ -69,9 +69,9 @@ def argexec(argv=None, **config_kwargs):
     if args.init_file:
         config_kwargs['init_file'] = args.init_file
 
+    # Configure has to be done before importing other modules.
     configure(**config_kwargs)
 
-    # Configure has to be done before import other modules
     from .core.shellmod import Shell
     shell = Shell()
     refer_shell_instance(shell)
@@ -88,6 +88,7 @@ def argexec(argv=None, **config_kwargs):
             cmdclient.send(cmd)
             return
 
+    # Run the event loop so all GUI elements can get initialized.
     from .gcore.guiapp import eventloop    
     eventloop(shell, init_file=config['init_file'], pictures=pics)
 

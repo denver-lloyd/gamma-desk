@@ -340,7 +340,8 @@ class MainWindow(QMainWindow):
         elif event.type() == QtCore.QEvent.NonClientAreaMouseButtonRelease:            
             self.windowPlaced() 
             return True
-            
+
+        # Let the regular QMainWindow handle the event.
         return super().event(event)
         
     def startMoving(self, allWindows=True):

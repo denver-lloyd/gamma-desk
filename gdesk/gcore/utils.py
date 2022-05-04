@@ -40,6 +40,7 @@ def getMenuTrace(menu):
         else:
             break
 
+    # Return path in menu (traced names in reverse).
     return menutrace[::-1]
 
 

@@ -172,7 +172,8 @@ class DockManager(object):
             # base_window_name = panelinfo['basewindow']
             
             id_exists = self.panels.id_exists(category, panid)
-            
+
+            # Iteratively get the class targeted by the qualname.
             tmp = importlib.import_module(module)
             for attr in qualname.split('.'):
                 tmp = getattr(tmp, attr) 
@@ -199,7 +200,7 @@ class DockManager(object):
                      
             panel = self.panels.new_panel(Cls, None, panid, floating=True) 
 
-        #Setup of bindings
+        # Setup bindings.
         for panelinfo in panels:
             category = panelinfo['category']
             panid = panelinfo['id']            
