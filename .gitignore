@@ -19,3 +19,4 @@
 /doc/sphinx/*.log
 /test/stderr.log
 /samples/*.log
+/venv/
