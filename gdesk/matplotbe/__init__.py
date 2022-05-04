@@ -5,9 +5,7 @@ from .. import config
 
 import os
 import ctypes
-import sys
 import threading
-import pickle
 import logging
 import warnings
 from distutils.version import LooseVersion
@@ -19,12 +17,8 @@ from matplotlib import cbook
 from matplotlib._pylab_helpers import Gcf
 from matplotlib.backend_bases import FigureCanvasBase, FigureManagerBase
 from matplotlib.backends.backend_agg import FigureCanvasAgg
-from matplotlib.backends.backend_qt5 import (
-    _BackendQT5, FigureCanvasQT, FigureManagerQT,
-    NavigationToolbar2QT, backend_version)
-  
+from matplotlib.backends.backend_qt import FigureCanvasQT
 from matplotlib.backends.qt_compat import QT_API
-from matplotlib.backends.backend_template import FigureCanvasTemplate, FigureManagerTemplate
 
 from .. import gui
 

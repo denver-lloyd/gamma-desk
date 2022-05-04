@@ -1,5 +1,4 @@
 import pathlib
-from functools import wraps
 from ... import config
 
 if config.get('qapp', False):

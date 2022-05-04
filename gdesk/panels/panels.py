@@ -1,24 +1,14 @@
-import threading
-import sys, os
-import ctypes
 from collections import OrderedDict
 import logging
-import importlib
-import pprint
 from pathlib import Path
 
-import numpy as np
+from qtpy import QtWidgets, QtCore
 
-from qtpy import QtGui, QtWidgets, QtCore
-from qtpy.QtCore import Qt
-
-from .. import config, gui, __release__
-from ..core import conf
+from .. import config
 
 from .base import BasePanel
 from .window import MainWindow
 from ..ezdock.ezdock import DockManager
-from ..ezdock.laystruct import LayoutStruct
 from ..utils import new_id_using_keys
 from ..gcore.utils import getMenuAction
 

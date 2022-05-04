@@ -1,6 +1,4 @@
 import logging
-import time
-import sys, os
 import threading
 import queue
 import socket
@@ -14,6 +12,7 @@ from .gui_proxy import gui
 
 logger = logging.getLogger(__name__)
 context = zmq.Context()
+
 
 class CommandServer(object):
 
@@ -165,7 +164,6 @@ class CommandServer(object):
                 
             answer = self.execute_command(handover, cmd, args)                              
                         
-        
     def execute_command(self, handover, cmd, args):
         if cmd is None:
             return
@@ -190,7 +188,8 @@ class CommandServer(object):
             
         elif cmd == 'execute_code':
             return handover.send(True, CommandServer.execute_code, *args)            
-        
+
+
 class CommandClient(object):
 
     def __init__(self, port=None, host='localhost'):

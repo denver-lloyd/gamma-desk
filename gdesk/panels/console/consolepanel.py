@@ -9,8 +9,8 @@ from qtpy import QtCore, QtGui, QtWidgets
 
 from qtpy.QtCore import Qt, QTimer, QSize
 from qtpy.QtGui import QFont, QFontMetrics, QTextCursor, QTextOption, QPainter, QTextCharFormat
-from qtpy.QtWidgets import (QAction, QMainWindow, QPlainTextEdit, QSplitter, QVBoxLayout, QLineEdit, QLabel,
-    QMessageBox, QTextEdit, QWidget, QStyle, QStyleFactory, QApplication, QCompleter, QComboBox)
+from qtpy.QtWidgets import (QAction, QPlainTextEdit, QSplitter, QVBoxLayout, QLabel,
+    QWidget, QApplication)
 
 from ... import config, gui
 from ...core import tasks

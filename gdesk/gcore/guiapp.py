@@ -1,17 +1,13 @@
-import threading
-import sys, os
+import sys
+import os
 import ctypes
 import logging
-import textwrap
 import pathlib
-import mmap
-import struct
-import threading
 import psutil
 
-from qtpy import QtGui, QtWidgets, QtCore
-from qtpy.QtWidgets import QApplication, QShortcut, QDesktopWidget
-from qtpy.QtGui import QIcon, QKeySequence
+from qtpy import QtGui, QtCore
+from qtpy.QtWidgets import QApplication, QShortcut
+from qtpy.QtGui import QIcon, QKeySequence, QGuiApplication
 from qtpy.QtCore import Qt
 
 from .. import gui, config, PROGNAME

@@ -1,15 +1,10 @@
-import sys
-import time
 import logging
-import pickle
 from pathlib import Path
 
-from matplotlib.backends.backend_qt5agg import  FigureCanvas, NavigationToolbar2QT as NavigationToolbar
-from matplotlib._pylab_helpers import Gcf
-from matplotlib.backends.backend_template import FigureCanvasTemplate, FigureManagerTemplate 
 import pylab
-
-from qtpy import QtWidgets, QtCore, QtGui              
+from qtpy import QtCore
+from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT
+from matplotlib._pylab_helpers import Gcf
 
 from ... import gui, config
 from .. import BasePanel, CheckMenu
@@ -86,7 +81,7 @@ class PlotPanel(BasePanel):
         
         self.setCentralWidget(self.canvas)         
         
-        self.nav = NavigationToolbar(self.canvas, self)
+        self.nav = NavigationToolbar2QT(self.canvas, self)
         self.nav.setIconSize(QtCore.QSize(20, 20))
         self.addToolBar(self.nav)        
         self.statusBar().hide()
@@ -103,7 +98,7 @@ class PlotPanel(BasePanel):
         self.setCentralWidget(self.canvas)        
         
         self.removeToolBar(self.nav)
-        self.nav = NavigationToolbar(self.canvas, self)
+        self.nav = NavigationToolbar2QT(self.canvas, self)
         self.nav.setIconSize(QtCore.QSize(20,20))        
         
         self.addToolBar(self.nav) 
