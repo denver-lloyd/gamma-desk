@@ -42,12 +42,12 @@ class WaitCursorContext(object):
         
     def __enter__(self):
         self.qapp.setOverrideCursor(QtCore.Qt.WaitCursor)
-        if not self.message is None:
+        if self.message:
             #TO DO, bring this to the relevant window status bar
             #self.qapp.panels['console'][0].addText(f'{self.message}\n')
             logger.info(self.message)
             
-            if not self.window is None:
+            if self.window:
                 self.window.statusBar().showMessage(self.message)
             
         self.qapp.processEvents()
@@ -272,7 +272,7 @@ class GuiApplication(QApplication):
 
 def eventloop(shell, init_code=None, init_file=None, console_id=0, pictures=None):
     """
-    The GUI Process and Thread running the eventloop
+    The GUI Process and Thread running the eventloop.
     """            
     shell.logdir.find_log_path()
     
@@ -280,8 +280,8 @@ def eventloop(shell, init_code=None, init_file=None, console_id=0, pictures=None
     qapp.setShortCuts()
     qapp.newWindow('main')
             
-    #To run in a new thread but on the same gui process
-    #panid = qapp.mainWindow.newThread()
+    # To run in a new thread but on the same gui process
+    # panid = qapp.mainWindow.newThread()
     qapp.mainWindow.show()
             
     desktopGeometry = QDesktopWidget().availableGeometry()
@@ -302,15 +302,15 @@ def eventloop(shell, init_code=None, init_file=None, console_id=0, pictures=None
     qapp.processEvents()    
     qapp.cmdserver = CommandServer(shell)
     
-    if not init_file is None:
+    if init_file:
         cmd = {'cmd': 'execute_file', 'args': (init_file, console_id)}
         qapp.cmdserver.cmd_queue.put(cmd)
         
-    if not init_code is None:
+    if init_code:
         cmd = {'cmd': 'execute_code', 'args': (init_code, console_id)}
         qapp.cmdserver.cmd_queue.put(cmd)        
         
-    if not pictures is None:
+    if pictures:
         cmd = {'cmd': 'open_images', 'args': pictures}
         qapp.cmdserver.cmd_queue.put(cmd)            
         
@@ -333,7 +333,4 @@ def eventloop(shell, init_code=None, init_file=None, console_id=0, pictures=None
     sys.stdout = sys.__stdout__
     sys.stderr = sys.__stderr__
     print(f'Exiting {PROGNAME}. Releasing lock.')   
-    shell.logdir.release_lock_file()    
-    
-
-            
+    shell.logdir.release_lock_file()

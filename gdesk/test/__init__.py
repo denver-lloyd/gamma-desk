@@ -180,7 +180,6 @@ class GammaDeskSuite(unittest.TestCase):
 
         assert (arr == gui.vs).all()
 
-
     def test_menu_image_2(self):
         from gdesk import gui
         import imageio
@@ -197,7 +196,6 @@ class GammaDeskSuite(unittest.TestCase):
         gui.menu_trigger('image', None, ['Edit', 'Show Prior Image'])
 
         assert (arr == gui.vs).all()
-
 
     def test_code_3(self):
         from gdesk import gui

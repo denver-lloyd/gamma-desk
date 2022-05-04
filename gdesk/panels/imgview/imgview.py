@@ -1312,7 +1312,7 @@ class ImageViewerBase(BasePanel):
         else:
             arr = self.openImagePIL(filepath)
 
-        if not arr is None:
+        if arr:
             self.long_title = str(filepath)
             gui.qapp.history.storepath(str(filepath))            
             

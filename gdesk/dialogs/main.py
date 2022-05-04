@@ -14,10 +14,13 @@ from ..panels.base import BasePanel
 from ..ezdock.laystruct import LayoutStruct
 from ..dicttree.widgets import DictionaryTreeDialog
 
+
 logger = logging.getLogger(__name__)
 respath = Path(config['respath'])
 
+
 class NewPanelMenu(QtWidgets.QMenu):
+
     def __init__(self, parent=None, showIcon=False):
         super().__init__('New', parent)
         if showIcon:
@@ -65,6 +68,7 @@ class NewPanelMenu(QtWidgets.QMenu):
 
 
 class ShowMenu(QtWidgets.QMenu):
+
     def __init__(self, parent=None, showIcon=False):
         super().__init__('Panel', parent)
         if showIcon:
@@ -120,6 +124,7 @@ class ShowMenu(QtWidgets.QMenu):
         panel.show_me()
         panel.select()
 
+
 class WindowMenu(QtWidgets.QMenu):
     def __init__(self, parent=None, showIcon=False):
         super().__init__('Window', parent)
@@ -174,6 +179,7 @@ class CachedArgCall(object):
 
 
 class LayoutMenu(QtWidgets.QMenu):
+
     def __init__(self, parent=None, showIcon=False):
         super().__init__('Layout', parent)
         if showIcon:
@@ -220,8 +226,8 @@ class LayoutMenu(QtWidgets.QMenu):
             config['layout'][layout_name] = gui.qapp.panels.ezm.get_perspective()
 
 
-
 class MainDialog(QtWidgets.QMainWindow):
+
     def __init__(self, panels):
         super().__init__()
         self.setWindowTitle(f'{PROGNAME} {__release__}')
@@ -419,6 +425,7 @@ class PanelsFloatingPreviews(QtWidgets.QDialog):
 
         self.selectedPanel = panel
 
+
 class WindowsFloatingPreviews(QtWidgets.QDialog):
     def __init__(self):
         super().__init__()
@@ -481,6 +488,7 @@ class WindowsFloatingPreviews(QtWidgets.QDialog):
 
 
 class LayoutList(QtWidgets.QListWidget):
+
     def __init__(self, parent):
         super().__init__(parent=parent)
         self.currentItemChanged.connect(self.changeItem)
@@ -498,6 +506,7 @@ class LayoutList(QtWidgets.QListWidget):
 
 
 class PanelsLayout(QtWidgets.QWidget):
+
     def __init__(self, dialog, panels):
         super().__init__(parent=dialog)
         self.dialog = dialog
@@ -540,4 +549,3 @@ class PanelsLayout(QtWidgets.QWidget):
         item = self.layout_list.selectedItems()[0]
         self.panels.restore_state_from_config(item.name)
         self.dialog.accept()
-

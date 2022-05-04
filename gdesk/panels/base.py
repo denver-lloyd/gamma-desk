@@ -19,7 +19,8 @@ class FuncToPanel(object):
                         
     def __call__(self):
         self.func(*self.args)
-        
+
+
 class CheckMenu(QtWidgets.QMenu):
     def __init__(self, name, parent=None):
         super().__init__(name, parent)
@@ -44,6 +45,7 @@ class CheckMenu(QtWidgets.QMenu):
         if not kwargs.get('enablecall', None) is None:
             self.action_enable_calls.append((action, kwargs.get('enablecall')))            
         return action        
+
 
 class PanelsMenu(QMenu):
 
@@ -125,6 +127,7 @@ def thisPanel(widget):
         widget = parent_attr()
     return widget
 
+
 def selectThisPanel(widget):
     thisPanel(widget).select()
        
@@ -139,9 +142,10 @@ class BasePanel(QMainWindow):
         self.baseWindowName = None               
         
         self.category = category                
-        #Also creates the category if not exists
-        id_exists = self.qapp.panels.id_exists(self.category, panid)        
-        if panid is None: panid = self.qapp.panels.new_id(self.category)
+        # Also create the category if does not exist.
+        self.qapp.panels.id_exists(self.category, panid)
+        if panid is None:
+            panid = self.qapp.panels.new_id(self.category)
         self.panid = panid            
         self.qapp.panels[self.category][self.panid] = self                
         
@@ -187,7 +191,6 @@ class BasePanel(QMainWindow):
         return newpanel
 
     def addMenuItem(self, menu, text, triggered, checkcall=None, enabled=True, statusTip=None, icon=None, enablecall=None):
-    
         menuTrace = getMenuTrace(menu)
         menuTrace.append(text)
         catMenyShortCuts = self.qapp.menuCallShortCuts.get(self.category, {})

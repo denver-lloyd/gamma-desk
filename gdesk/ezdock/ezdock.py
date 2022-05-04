@@ -163,13 +163,13 @@ class DockManager(object):
         
         panels = perspective['panels']
         
-        #Create panels
+        # Create panels.
         for panelinfo in panels:
             category = panelinfo['category']
             panid = panelinfo['id']
             module = panelinfo['module']
             qualname = panelinfo['qualname']            
-            #base_window_name = panelinfo['basewindow']
+            # base_window_name = panelinfo['basewindow']
             
             id_exists = self.panels.id_exists(category, panid)
             

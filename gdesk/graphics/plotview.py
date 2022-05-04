@@ -1,12 +1,11 @@
 from qtpy import QtCore, QtGui, QtWidgets
 
 try:
-    #Only needed for experimental OpenQl support
+    # Only needed for experimental OpenQl support
     from qtpy import QtOpenGl
     HAVE_OPENGL = True
-    
 except:
-    HAVE_OPENGL = False   
+    HAVE_OPENGL = False
     
 from .point import Point
 from . import functions as fn

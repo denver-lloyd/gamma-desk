@@ -16,6 +16,7 @@ respath = Path(config['respath'])
 sck = config['shortcuts']
 logger = logging.getLogger(__name__)
 
+
 class Panels(object):
     def __init__(self, qapp):
         self.panels = OrderedDict()
@@ -131,7 +132,6 @@ class Panels(object):
         else:
             return None
 
-
     def reselect_all(self):
         for category in list(self.keys()):
             panel = self.selected(category)
@@ -156,7 +156,7 @@ class Panels(object):
         if parentName is None:
             activeWindow = self.qapp.activeWindow()
             if isinstance(activeWindow, MainWindow):
-                parentName =  activeWindow.name
+                parentName = activeWindow.name
 
         panel = PanelClass(None, panid, *args, **kwargs)
         

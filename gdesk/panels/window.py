@@ -331,8 +331,10 @@ class MainWindow(QMainWindow):
                     return super().event(event)
                 return True
             
-        elif event.type() == QtCore.QEvent.NonClientAreaMouseButtonDblClick \
-            or event.type() == QtCore.QEvent.Resize:
+        elif event.type() in [
+                QtCore.QEvent.NonClientAreaMouseButtonDblClick,
+                QtCore.QEvent.Resize
+        ]:
             self.windowPlaced(canceled=True)            
             
         elif event.type() == QtCore.QEvent.NonClientAreaMouseButtonRelease:            

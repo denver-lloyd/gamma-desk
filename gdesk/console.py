@@ -76,7 +76,7 @@ def argexec(argv=None, **config_kwargs):
     shell = Shell()
     refer_shell_instance(shell)
     
-    watcher_ports =  shell.get_watcher_ports()
+    watcher_ports = shell.get_watcher_ports()
     
     pics = [bootpath / p for p in args.pictures]
     

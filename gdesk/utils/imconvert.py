@@ -384,14 +384,15 @@ def make_color_table(name):
             table.append(a*aBase + r*rBase + g*gBase + b*bBase )     
             
     return table
-        
+
+
 def ndarray_to_qimage(array, color_table=None):
     ndim = array.ndim
     shape = array.shape
     dtype = array.dtype
     
-    #Format_RGB888:  Byte order in Red,  Green, Blue
-    #Format_ARGB32:  Byte order in Blue, Green, Red,  Alpha
+    # Format_RGB888:  Byte order in Red,  Green, Blue
+    # Format_ARGB32:  Byte order in Blue, Green, Red,  Alpha
     
     if ndim == 1:
         width = shape[0]

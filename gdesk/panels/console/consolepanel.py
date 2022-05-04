@@ -674,6 +674,7 @@ class RecentMenu(QtWidgets.QMenu):
             self.addAction(action)
             self.actions.append(action)
 
+
 class Console(BasePanel):
     panelCategory = 'console'
     userVisible = False
@@ -946,6 +947,7 @@ class Console(BasePanel):
         finally:
             self.stdio.task.unregister()
             super().close_panel()
+
 
 class MainThreadConsole(Console):
     panelShortName = 'main'

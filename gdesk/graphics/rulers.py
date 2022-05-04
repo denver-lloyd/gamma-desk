@@ -1,21 +1,22 @@
 from qtpy import QtCore, QtGui, QtWidgets
 from ..utils.ticks import tickValues, Ticks
       
-fonts = []
+fonts = [
+    # QtGui.QFont('Arial', 12),
+    # QtGui.QFont('Arial', 10),
+    # QtGui.QFont('Arial', 9),
+    QtGui.QFont('Arial', 8),
+    QtGui.QFont('Arial', 7),
+    QtGui.QFont('Arial', 5),
+]
 
-# fonts.append(QtGui.QFont('Arial', 12))
-# fonts.append(QtGui.QFont('Arial', 10))
-# fonts.append(QtGui.QFont('Arial', 9))
 
-fonts.append(QtGui.QFont('Arial', 8))
-fonts.append(QtGui.QFont('Arial', 7))
-fonts.append(QtGui.QFont('Arial', 5))
+grid_pens = [
+    QtGui.QPen(QtGui.QColor(159,159,159), 0, QtCore.Qt.SolidLine),
+    QtGui.QPen(QtGui.QColor(191,191,191), 0, QtCore.Qt.DashLine),
+    QtGui.QPen(QtGui.QColor(223,223,223), 0, QtCore.Qt.DotLine),
+]
 
-grid_pens = []
-grid_pens.append(QtGui.QPen(QtGui.QColor(159,159,159), 0, QtCore.Qt.SolidLine))
-grid_pens.append(QtGui.QPen(QtGui.QColor(191,191,191), 0, QtCore.Qt.DashLine))
-grid_pens.append(QtGui.QPen(QtGui.QColor(223,223,223), 0, QtCore.Qt.DotLine))
-        
         
 class LabelItem(QtWidgets.QGraphicsLineItem):
     

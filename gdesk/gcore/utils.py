@@ -17,9 +17,11 @@ def relax_menu_text(text):
         tmp = tmp[:tabind]
     return tmp.strip()
 
+
 def relax_menu_trace(menutrace):
     """relax_menu_text on every string of menutrace"""
     return tuple(relax_menu_text(item) for item in menutrace)
+
 
 def getMenuTrace(menu):
     """Return the current menu location as a list of strings"""
@@ -35,6 +37,7 @@ def getMenuTrace(menu):
             break
 
     return menutrace[::-1]
+
 
 def getMenuAction(menubar, menutrace):
     """Locate the action in a menubar"""
