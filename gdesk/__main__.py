@@ -17,5 +17,5 @@
 """This file is executed with python -m gdesk"""
 
 if __name__ == '__main__':
-    from .console import argexec
+    from gdesk.console import argexec
     shell = argexec()
