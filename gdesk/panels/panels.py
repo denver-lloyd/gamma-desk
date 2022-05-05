@@ -3,6 +3,7 @@ import logging
 from pathlib import Path
 
 from qtpy import QtWidgets, QtCore
+from qtpy.QtGui import QGuiApplication
 
 from .. import config
 
@@ -179,9 +180,9 @@ class Panels(object):
 
         return panel
 
-    def place_window(self, window, category):        
-        screen = QtWidgets.QDesktopWidget().screenNumber(self.qapp.windows['main'])
-        desktop_rect = QtWidgets.QDesktopWidget().availableGeometry(screen)
+    def place_window(self, window, category):
+        main_screen = self.qapp.windows['main'].screen()
+        desktop_rect = main_screen.availableGeometry()
         
         window_rect = window.frameGeometry()
         prior_panel = self.selected(category, -2)
@@ -198,11 +199,12 @@ class Panels(object):
         position = window_rect.topLeft()
         
         visible = False
-        
-        for screen in range(QtWidgets.QDesktopWidget().screenCount()):
-            if QtWidgets.QDesktopWidget().availableGeometry(screen).contains(window_rect):
+
+        # Check if the window is fully visible on any screen.
+        for screen in QGuiApplication.screens():
+            if screen.availableGeometry().contains(window_rect):
                 visible = True
-            
+
         if not visible:
             position = desktop_rect.topLeft()
 
