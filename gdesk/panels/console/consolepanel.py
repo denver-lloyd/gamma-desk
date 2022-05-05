@@ -702,20 +702,23 @@ class Console(BasePanel):
         return self.stdio.task
 
     def createMenus(self):
+        menu = self.menuBar()
+
         self.fileMenu = self.menuBar().addMenu("&File")
-        #self.executionMenu = self.menuBar().addMenu("&Execution")
+        menu.addMenu(self.fileMenu)
 
-        self.executionMenu = CheckMenu("&Execution", self.menuBar())
-        self.menuBar().addMenu(self.executionMenu)
-
-        self.addMenuItem(self.fileMenu, "Open File", self.openFileDialog,
-            statusTip="Open a file", icon = 'folder_vertical_document.png')
-
+        self.addMenuItem(
+            self.fileMenu, "Open File", self.openFileDialog,
+            statusTip="Open a file", icon='folder_vertical_document.png',
+        )
         self.addMenuItem(self.fileMenu, 'New Thread', self.newThread)
         self.fileMenu.addMenu(RecentMenu(self))
         self.addMenuItem(self.fileMenu, "Close", self.close_panel,
             statusTip = "Close this Thread",
             icon = QtGui.QIcon(str(respath / 'icons' / 'px16' / 'cross.png')))
+
+        self.executionMenu = CheckMenu("&Execution", menu)
+        menu.addMenu(self.executionMenu)
 
         traceMenu = QtWidgets.QMenu('tracing')
         traceMenu.addAction(QAction("Enable Tracing", self, triggered=lambda: self.task.set_tracing(True),
