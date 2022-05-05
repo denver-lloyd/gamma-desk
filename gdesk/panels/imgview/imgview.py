@@ -503,10 +503,11 @@ class ImageViewerWidget(QWidget):
         return self.imgdata
 
     def getImageCoordOfMouseEvent(self, event):
-        x_float = event.pos().x() / self.zoomDisplay + self.dispOffsetX
-        y_float = event.pos().y() / self.zoomDisplay + self.dispOffsetY
-        #Round down
-        return (int(x_float), int(y_float))
+        position = event.position() if hasattr(event, "position") else event.pos()
+        x_float = position.x() / self.zoomDisplay + self.dispOffsetX
+        y_float = position.y() / self.zoomDisplay + self.dispOffsetY
+        # Round to integer X/Y position.
+        return int(x_float), int(y_float)
 
     def getImageCoordOfDisplayCenter(self):
         #get the current pixel position as seen on center of screen
@@ -594,6 +595,12 @@ class ImageViewerWidget(QWidget):
     def zoomOut(self, fixPointX=-1, fixPointY=-1, fine=False):
         self.zoom(-1, fixPointX, fixPointY, step=True, fine=fine)
 
+    def zoomInOrOut(self, zoom_in, fixPointX=-1, fixPointY=-1, fine=False):
+        if zoom_in:
+            self.zoomIn(fixPointX, fixPointY, fine)
+        else:
+            self.zoomOut(fixPointX, fixPointY, fine)
+
     def zoom(self, zoomValue=0, fixPointX=-1, fixPointY=-1, step=True, fine=False):
         self.dragStartX = None
         self.dragStartY = None
@@ -604,7 +611,7 @@ class ImageViewerWidget(QWidget):
         tmpX = (fixPointX - self.dispOffsetX) * self.zoomDisplay
         tmpY = (fixPointY - self.dispOffsetY) * self.zoomDisplay
 
-        if step == True:
+        if step:
             if fine:
                 self.zoomValue = self.zoomValue + zoomValue * 0.01 * self.zoomValue
             else:
@@ -749,22 +756,17 @@ class ImageViewerWidget(QWidget):
         self.zoomAuto()
 
     def wheelEvent(self, event):
-        if event.modifiers() & QtCore.Qt.ControlModifier:
-            fine = True
-        else:
-            fine = False
-
-        if event.delta() < 0:
-            self.zoomOut(*self.getImageCoordOfMouseEvent(event), fine)
-        else:
-            self.zoomIn(*self.getImageCoordOfMouseEvent(event), fine)
+        fine_steps = bool(event.modifiers() & QtCore.Qt.ControlModifier)
+        x, y = self.getImageCoordOfMouseEvent(event)
+        zoom_in = event.angleDelta().y() > 0
+        zoom_direction = 1 if zoom_in else -1
+        self.zoom(zoom_direction, x, y, step=True, fine=fine_steps)
 
     def mousePressEvent(self, event):
-        if event.buttons() == Qt.LeftButton or \
-            (event.buttons() == Qt.MiddleButton):
+        if event.buttons() == Qt.LeftButton or event.buttons() == Qt.MiddleButton:
             self.dragStartX = event.pos().x()
             self.dragStartY = event.pos().y()
-            #roi value at the start of the dragging
+            # roi value at the start of the dragging
             self.dispRoiStartX = self.dispOffsetX
             self.dispRoiStartY = self.dispOffsetY
 
@@ -1152,11 +1154,11 @@ class ImageViewerBase(BasePanel):
         self.addMenuItem(self.imageMenu, 'Swap RGB | BGR', self.swapRGB,
             statusTip="Swap the blue with red channel",
             icon = QtGui.QIcon(str(respath / 'icons' / 'px16' / 'color.png')))
-        self.addMenuItem(self.imageMenu, 'to Monochroom', self.toMonochroom,
+        self.addMenuItem(self.imageMenu, 'to Monochrome', self.toMonochrome,
             statusTip="Convert an RGB image to monochroom grey",
             icon = QtGui.QIcon(str(respath / 'icons' / 'px16' / 'convert_color_to_gray.png')))
-        self.addMenuItem(self.imageMenu, 'to Photometric Monochroom', self.toPhotoMonochroom,
-            statusTip="Convert an RGB image to photometric monochroom grey",
+        self.addMenuItem(self.imageMenu, 'to Photometric Monochrome', self.toPhotoMonochrome,
+            statusTip="Convert an RGB image to photometric monochrome grey",
             icon = QtGui.QIcon(str(respath / 'icons' / 'px16' / 'convert_color_to_gray.png')))
         self.addMenuItem(self.imageMenu, 'to 8-bit', self.to8bit,
             enablecall = self.is16bit)
@@ -1312,7 +1314,7 @@ class ImageViewerBase(BasePanel):
         else:
             arr = self.openImagePIL(filepath)
 
-        if arr:
+        if arr is not None:
             self.long_title = str(filepath)
             gui.qapp.history.storepath(str(filepath))            
             
@@ -2153,8 +2155,7 @@ class ImageViewerBase(BasePanel):
         procarr[:,:,2] = self.ndarray[:,:,0]
         self.show_array(procarr)
 
-
-    def toMonochroom(self):
+    def toMonochrome(self):
         array = self.ndarray
 
         if not array.ndim == 3:
@@ -2164,8 +2165,7 @@ class ImageViewerBase(BasePanel):
         procarr = clip_array(array.mean(2), dtype)
         self.show_array(procarr)
 
-
-    def toPhotoMonochroom(self):
+    def toPhotoMonochrome(self):
         array = self.ndarray
 
         if not array.ndim == 3:
