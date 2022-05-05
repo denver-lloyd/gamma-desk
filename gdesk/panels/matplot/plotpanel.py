@@ -14,6 +14,7 @@ logger = logging.getLogger(__name__)
 
 set_active_backup = Gcf.set_active
 
+
 def gcf_set_active(manager):
     # Note that this function is called by pyplot
     # - when the user clicks on the canvas (callback needed on canvas object?)
@@ -27,12 +28,14 @@ def gcf_set_active(manager):
     else:
         set_active_backup(manager)
 
-#Hacking pyplot !
+# Hacking pyplot !
 Gcf.set_active = gcf_set_active
+
 
 def restore_gcf_set_active():
     Gcf.set_active = set_active_backup
-           
+
+
 class PlotPanel(BasePanel):
     panelCategory = 'plot'
     panelShortName = 'basic'
@@ -166,7 +169,7 @@ class PlotPanel(BasePanel):
         super().select()
         
     def close_me_from_menu(self):  
-        #Use the matplotlib backend to close
+        # Use the matplotlib backend to close.
         pylab.close(self.panid)
 
     def close_others(self):          
@@ -176,6 +179,5 @@ class PlotPanel(BasePanel):
             pylab.close(panid)
         
     def close_panel(self):              
-        #Called from the matplotlib backend
+        # Called from the matplotlib backend
         super().close_panel()
-  

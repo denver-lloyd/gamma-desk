@@ -82,6 +82,7 @@ def deep_diff(dict1, dict2):
 
     return result
 
+
 def list_packages(packages):
     for (package, base) in packages:
         found = importlib.util.find_spec(base)
@@ -95,6 +96,7 @@ def list_packages(packages):
             logger.debug(f'{package}:\n    {origin.parent}\n    {origin.name}: {modified_str}')
             for path in install_dir.glob(f'{package}*.dist-info'):
                 logger.debug(f'    dist-info: {path.stem}')
+
 
 def configure(**overwrites):
     global configured

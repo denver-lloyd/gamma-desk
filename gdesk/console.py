@@ -124,7 +124,8 @@ def is_imported_by_child_process():
         frame = frame.f_back
 
     return False
-    
+
+
 def restart():
     # in case of started with -m gdesk and extra arguments
     # sys.argv:  # ['c:\\users\\thomas.cools\\projects\\gamma-desk\\git\\gdesk\\__main__.py', '-c', '..\\setup\\gdconf.json']

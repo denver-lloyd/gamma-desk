@@ -11,7 +11,8 @@ if config.get('qapp', False):
     from ...dicttree.widgets import DictionaryTreeDialog
     
 from ...core.gui_proxy import gui, GuiProxyBase, StaticGuiCall
-      
+
+
 class DialogGuiProxy(GuiProxyBase):    
     category = 'values'
     

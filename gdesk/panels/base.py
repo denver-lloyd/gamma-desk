@@ -12,6 +12,7 @@ from ..gcore.utils import getMenuTrace, relax_menu_trace
 logger = logging.getLogger(__name__)
 respath = pathlib.Path(config['respath'])
 
+
 class FuncToPanel(object):
     def __init__(self, func, *args):
         self.func = func
@@ -22,9 +23,10 @@ class FuncToPanel(object):
 
 
 class CheckMenu(QtWidgets.QMenu):
+
     def __init__(self, name, parent=None):
         super().__init__(name, parent)
-        if not parent is None:
+        if parent:
             parent.addMenu(self)
         self.action_checked_calls = []
         self.action_enable_calls = []
@@ -34,7 +36,7 @@ class CheckMenu(QtWidgets.QMenu):
             action.setChecked(checked_call())
             
         for action, enable_call in self.action_enable_calls:
-            action.setEnabled(enable_call())            
+            action.setEnabled(enable_call())
             
     def addActionWithCallback(self, action, checkcall=None, enablecall=None, **kwargs):
         super().addAction(action, **kwargs)
@@ -217,7 +219,7 @@ class BasePanel(QMainWindow):
         if isinstance(icon, str):
             icon = QtGui.QIcon(str(respath / 'icons' / 'px16' / icon))
         
-        if not icon is None:
+        if icon:
             action.setIcon(icon)
 
         if checkcall or enablecall:
@@ -370,7 +372,7 @@ class BasePanel(QMainWindow):
                 result[category].append(Cls)
             return result
         else:
-            return l      
+            return l
 
     def get_container(self):                
         from ..ezdock.ezdock import DockContainer

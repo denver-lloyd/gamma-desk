@@ -5,7 +5,6 @@ from .shared import SharedArray
 try:
     from .numba_func import map_values_mono, map_values_rgbswap, map_values_rgb, nb_float_offset_gain_gamma_8bit
     has_numba = True
-    
 except:
     has_numba = False
 
@@ -15,7 +14,7 @@ else:
     use_numba = False
     
     
-colormaps = ['grey', 'clip', 'turbo', 'jet', 'invert', 'hot', 'cold']    
+colormaps = ['grey', 'clip', 'turbo', 'jet', 'invert', 'hot', 'cold']
 
 turbo_colormap_data = [
     [0.18995,0.07176,0.23217],[0.19483,0.08339,0.26149],[0.19956,0.09498,0.29024],[0.20415,0.10652,0.31844],

@@ -12,20 +12,19 @@ from queue import Queue
 try:
     import zmq
     zmq_context = zmq.Context()
-    
 except:
     pass    
 
-
-logger = logging.getLogger(__name__)   
-
-#In case of Process call, this module will be important by the child 
-#process by the unpickling of the CommQueues
+# In case of Process call, this module will be important by the
+# child process by the unpickling of the CommQueues.
 from .conf import config, configure
 from .. import refer_shell_instance
 
-#Configure in case of the child process before importing anthing else of ghawk2
-configure(matplotlib={'backend':'svg'})
+
+logger = logging.getLogger(__name__)
+
+# Configure in case of the child process before importing anthing else of ghawk2
+configure(matplotlib={'backend': 'svg'})
 process_name = multiprocessing.current_process().name
 logger.debug(f'import of {__name__} by {process_name}\n')
 

@@ -22,6 +22,7 @@ from matplotlib.backends.qt_compat import QT_API
 
 from .. import gui
 
+
 if config['qapp']:
     from qtpy import QtCore, QtGui
     from ..panels.matplot import PlotPanel
@@ -55,14 +56,16 @@ logger = logging.getLogger(__name__)
 
 warnings.filterwarnings("ignore", "Starting a Matplotlib GUI outside of the main thread will likely fail.")
 
+
 def draw_if_interactive():
     """
     For image backends - is not required.
     For GUI backends - this should be overridden if drawing should be done in
     interactive python mode.
-    """  
-    if matplotlib.is_interactive(): 
+    """
+    if matplotlib.is_interactive():
         show()
+
 
 def show(*, block=None):
     """
@@ -72,11 +75,13 @@ def show(*, block=None):
     should do nothing.
     """ 
     #manager = Gcf.get_active()   
-    if matplotlib.is_interactive(): return
+    if matplotlib.is_interactive():
+        return
     
     for manager in Gcf.get_all_fig_managers():
         manager.show()
-        
+
+
 def new_figure_manager(num, *args, FigureClass=Figure, **kwargs):
     """Create a new figure manager instance."""
     # If a main-level app must be created, this (and
@@ -87,15 +92,16 @@ def new_figure_manager(num, *args, FigureClass=Figure, **kwargs):
     thisFig = FigureClass(*args, **kwargs)
     return new_figure_manager_given_figure(num, thisFig)
 
+
 def new_figure_manager_given_figure(num, figure):
     """Create a new figure manager instance for the given figure."""
     
-    #print(f'timer: {time.perf_counter()}')
+    # print(f'timer: {time.perf_counter()}')
 
     if not gui.valid() or gui._qapp is None:                    
-        #In case of comming from other Process
-        #Don't do a guicall, FigureCanvasGh2 or FigureManagerQT is not pickable!
-        #Is called if figure, line, ... is depickled from the interprocess queue
+        # In case of comming from other Process
+        # Don't do a guicall, FigureCanvasGh2 or FigureManagerQT is not pickable!
+        # Is called if figure, line, ... is depickled from the interprocess queue
         canvas = FigureCanvasBase(figure)
         manager = FigureManagerGh2Child(canvas, num)
         
@@ -112,7 +118,6 @@ class FigureCanvasGh2(FigureCanvasAgg, FigureCanvasQT):
         # Must pass 'figure' as kwarg to Qt base class.
         super().__init__(figure=figure)        
             
-        
     @property
     def dev_pixel_ratio(self):
         return getattr(self, DEV_PIXEL_RATIO_ATTR)
@@ -200,25 +205,27 @@ class FigureCanvasGh2(FigureCanvasAgg, FigureCanvasQT):
     def print_figure(self, *args, **kwargs):
         super().print_figure(*args, **kwargs)
         self.draw()
-        
+
+
 def make_and_hide_plot_panel(PanelClass, parentName=None, panid=None, floating=False,
         position=None, size=None, args=(), kwargs={}):
-        
+
     panel = gui._qapp.panels.new_panel(PanelClass, parentName, panid, floating, position, size, args, kwargs)
     # if not matplotlib.is_interactive():
         # panel.window().hide()
     return panel        
-        
-class FigureManagerGh2(FigureManagerBase):
 
+
+class FigureManagerGh2(FigureManagerBase):
     """
     Wrap everything up into a window for the pylab interface
 
     For non interactive backends, the base class does all the work
-    """       
+    """
+
     def __init__(self, canvas, num):
         super().__init__(canvas, num)
-        
+
         if matplotlib.is_interactive():
             width, height = self.canvas.figure.get_dpi() * self.canvas.figure.get_size_inches()
             self.panel = gui.gui_call(make_and_hide_plot_panel, PlotPanel, 'main', self.num, None,
@@ -243,20 +250,21 @@ class FigureManagerGh2(FigureManagerBase):
         else:        
             raise ValueError(f'gui called from unknown thread {os.getpid()}/{threading.current_thread()}')
         
-    def destroy(self, *args):        
+    def destroy(self, *args):
         if 'plot' in gui._qapp.panels.keys():
             if not self.panel is None:
                 gui.gui_call(PlotPanel.close_panel, self.panel)
         else:
             pass
-            
-class FigureManagerGh2Child(FigureManagerBase):
 
+
+class FigureManagerGh2Child(FigureManagerBase):
     """
     Wrap everything up into a window for the pylab interface
 
     For non interactive backends, the base class does all the work
-    """       
+    """
+
     def __init__(self, canvas, num):
         super().__init__(canvas, num)
         self.panel = None
@@ -268,12 +276,11 @@ class FigureManagerGh2Child(FigureManagerBase):
         by :meth:`~matplotlib.figure.Figure.show`, for an
         optional warning.
         """
-        if gui.valid():            
+        if gui.valid():
             gui.plot.show(self.canvas.figure)
         else:        
             raise ValueError(f'gui called from unknown thread {os.getpid()}/{threading.current_thread()}')
               
         
-
 FigureCanvas = FigureCanvasGh2
 FigureManager = FigureManagerGh2

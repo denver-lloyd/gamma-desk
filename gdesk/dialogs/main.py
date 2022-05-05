@@ -219,7 +219,8 @@ class LayoutMenu(QtWidgets.QMenu):
 
     def saveLayout(self):
         layout_name = gui.dialog.getstring('Give it a name')
-        if layout_name == '': return
+        if layout_name == '':
+            return
         if layout_name == 'base':
             gui.dialog.msgbox(f"You can't overwrite {layout_name}", icon='warn')
         else:
@@ -536,7 +537,7 @@ class PanelsLayout(QtWidgets.QWidget):
 
     def refresh(self):
         self.layout_list.clear()
-        shortcuts = dict((v,k) for k,v in config['shortcuts']['layout'].items())
+        shortcuts = dict((v, k) for k, v in config['shortcuts']['layout'].items())
         for name, layout in config['layout'].items():
             description = layout.get('description', 'no description')
             if shortcuts.get(name, None):

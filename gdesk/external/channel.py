@@ -8,7 +8,7 @@ import json
 from multiprocessing import Process, Queue
 
 from .. import config, configure, gui
-configure(matplotlib={'backend':'svg'})
+configure(matplotlib={'backend': 'svg'})
 
 from .. import console
 from ..core.shellmod import Shell
