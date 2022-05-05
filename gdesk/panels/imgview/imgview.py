@@ -376,7 +376,7 @@ class StatusPanel(QWidget):
         if not icon is None:
             action.setIcon(icon)
             
-        menu.addAction(action, checkcall=checkcall, enablecall=enablecall)      
+        menu.addActionWithCallback(action, checkcall=checkcall, enablecall=enablecall)
         return action        
         
     def toggleWidgetVisible(self, widget):
