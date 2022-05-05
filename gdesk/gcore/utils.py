@@ -3,7 +3,7 @@ Small utils directly related to QT
 """
 import collections
 from pathlib import Path
-from qtpy import QtWidgets
+from qtpy import QT6, QtWidgets
 
 from .. import config
 
@@ -27,10 +27,12 @@ def getMenuTrace(menu):
     """Return the current menu location as a list of strings"""
     menutrace = [menu.title().strip('&')]
     scan_action = menu.menuAction()
-    while scan_action is not None:
-        if not hasattr(scan_action, "associatedWidgets"):
-            continue
-        aw = scan_action.associatedWidgets()
+    while scan_action:
+        if QT6:
+            aw = scan_action.associatedObjects()
+        else:
+            aw = scan_action.associatedWidgets()
+
         if len(aw) > 0 and isinstance(aw[0], QtWidgets.QMenu):
             menu = aw[0]
             menutrace.append(menu.title().strip('&'))
