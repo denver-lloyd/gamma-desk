@@ -21,7 +21,9 @@ grid_pens = [
 class LabelItem(QtWidgets.QGraphicsLineItem):
     
     def __init__(self, text='', level=0, grid=False, parent=None, scene=None):
-        super().__init__(parent=parent, scene=scene)
+        super().__init__(parent=parent)
+        if scene:
+            scene.addItem(self)
         self.setLine(0, 0, 0, 10)
         self.setFlags(QtWidgets.QGraphicsItem.ItemIgnoresTransformations)
         self.label = QtWidgets.QGraphicsTextItem(text, self)
@@ -41,7 +43,9 @@ class LabelItem(QtWidgets.QGraphicsLineItem):
 class GridItem(QtWidgets.QGraphicsLineItem):
     
     def __init__(self, level=0,  parent=None, scene=None):
-        super().__init__(parent=parent, scene=scene)
+        super().__init__(parent=parent)
+        if scene:
+            scene.addItem(self)
         self.setFlags(QtWidgets.QGraphicsItem.ItemIgnoresTransformations)
         self.gline = QtWidgets.QGraphicsLineItem(self)
         self.gline.setPen(grid_pens[level])
@@ -51,7 +55,9 @@ class GridItem(QtWidgets.QGraphicsLineItem):
 class yAxisLabel(QtWidgets.QGraphicsLineItem):
     
     def __init__(self, text='', fontNumber=0, parent=None, scene=None):
-        super().__init__(parent=parent, scene=scene)
+        super().__init__(parent=parent)
+        if scene:
+            scene.setItem(self)
         self.setFlags(QtWidgets.QGraphicsItem.ItemIgnoresTransformations)
         
         self.bgrect = QtWidgets.QGraphicsRectItem(-40, -10, 40, 20, parent=self)
@@ -70,7 +76,9 @@ class yAxisLabel(QtWidgets.QGraphicsLineItem):
 class SubDivisionX(QtWidgets.QGraphicsLineItem):
     
     def __init__(self,  parent=None, scene=None):
-        super().__init__(parent=parent, scene=scene)
+        super().__init__(parent=parent)
+        if scene:
+            scene.addItem(self)
         self.setLine(0, 0, 0, 3)
         self.setFlags(QtWidgets.QGraphicsItem.ItemIgnoresTransformations)
 
@@ -78,7 +86,9 @@ class SubDivisionX(QtWidgets.QGraphicsLineItem):
 class SubDivisionY(QtWidgets.QGraphicsLineItem):
     
     def __init__(self,  parent=None, scene=None):
-        super().__init__(parent=parent, scene=scene)
+        super().__init__(parent=parent)
+        if scene:
+            scene.addItem(self)
         self.setLine(0, 0, 3, 0)
         self.setFlags(QtWidgets.QGraphicsItem.ItemIgnoresTransformations)
                
@@ -90,9 +100,10 @@ class SubDivisionY(QtWidgets.QGraphicsLineItem):
 class TickedRuler(QtWidgets.QGraphicsPolygonItem):
     
     def __init__(self, orientation, start, stop, scale, noDecimals=True, parent=None, scene=None):
-        #super().__init__(parent=parent, scene=scene)   
-        super().__init__(parent=parent)   
-        
+        super().__init__(parent=parent)
+        if scene:
+            scene.addItem(self)
+
         #self.setPos(0,0)
         #self.setLine(-1, -1, 1, 1)
         #self.setPen(QtGui.QPen(QtGui.QColor(200,50,50),1))
@@ -210,9 +221,10 @@ class TickedRuler(QtWidgets.QGraphicsPolygonItem):
 #class Grid(QtWidgets.QGraphicsLineItem):
 class Grid(QtWidgets.QGraphicsItemGroup):
     def __init__(self, ruler=None, parent=None, scene=None):
-        #super().__init__(parent=parent, scene=scene)   
-        super().__init__(parent=parent)   
-        
+        super().__init__(parent=parent)
+        if scene:
+            scene.addItem(self)
+
         # self.setLine(-1, 1, 1, -1)
         # self.setPen(QtGui.QPen(QtGui.QColor(50,200,50),1))        
         
@@ -285,7 +297,9 @@ class Grid(QtWidgets.QGraphicsItemGroup):
             
 class Axis(QtWidgets.QGraphicsLineItem):
     def __init__(self, plotAngle, start, stop, thicks, parent=None, scene=None):
-        super().__init__(parent=parent, scene=scene)   
+        super().__init__(parent=parent)
+        if scene:
+            scene.addItem(self)
         
         self.setLine(0, 0, 0, 0)
         
