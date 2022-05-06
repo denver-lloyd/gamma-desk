@@ -1,9 +1,5 @@
 import numpy as np
 
-from qtpy import QtGui, QtCore
-
-from gdesk.utils.qt import using_pyside, using_pyqt
-
 from .shared import SharedArray
 
 try:
@@ -132,8 +128,12 @@ def make_map8(dtype='uint16', offset=0, gain=1, gamma=1):
             return np.r_[positives, negatives]
             
         
-    
-def qimage_to_ndarray(qimg, dtype=None):                
+def qimage_to_ndarray(qimg, dtype=None):
+    # Do late import of Qt.
+    # This avoids determining the Qt version too early, before configure()
+    # Has managed to set environ variable `QT_API`.
+    from qtpy import QtGui
+    from gdesk.utils.qt import using_pyside, using_pyqt
 
     if qimg.depth() == 8 and qimg.format() == QtGui.QImage.Format_Indexed8:        
         qimg_canvas = QtGui.QImage(qimg.width(), qimg.height(), QtGui.QImage.Format_RGB888)
@@ -387,6 +387,11 @@ def make_color_table(name):
 
 
 def ndarray_to_qimage(array, color_table=None):
+    # Do late import of Qt.
+    # This avoids determining the Qt version too early, before configure()
+    # Has managed to set environ variable `QT_API`.
+    from qtpy import QtGui
+
     ndim = array.ndim
     shape = array.shape
     dtype = array.dtype
