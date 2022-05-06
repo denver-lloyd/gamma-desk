@@ -39,5 +39,4 @@ python -m gdesk
 `qtpy`
 `psutils`
 `pyzmq`
-`ninja2`
 `toml`

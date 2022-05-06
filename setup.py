@@ -33,7 +33,6 @@ REQUIRED = [
     'psutil',
     'numba',
     'pyzmq',
-    'ninja2',
     'toml',
     'pywinpty'
 ]
