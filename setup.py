@@ -23,7 +23,10 @@ AUTHOR = 'Thomas Cools'
 modpath = herepath / 'gdesk'
 
 REQUIRED = [
-    'numpy==1.20.3', #numba requires numpy <= 1.20
+    # Numba is compatible to certain numpy versions;
+    # pip ensures that both have their latest-but-compatible versions.
+    'numba',
+    'numpy',
     'imageio',
     # Exclude MatPlotLib 3.5.2 because it crashes plotting on PySide6.
     'matplotlib != 3.5.2',
@@ -31,7 +34,6 @@ REQUIRED = [
     'PySide6',
     'qtpy',
     'psutil',
-    'numba',
     'pyzmq',
     'toml',
     # PyWinpty is only useful on Windows and requires a Rust toolchain to install on Linux.
