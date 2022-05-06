@@ -25,7 +25,8 @@ modpath = herepath / 'gdesk'
 REQUIRED = [
     'numpy==1.20.3', #numba requires numpy <= 1.20
     'imageio',
-    'matplotlib!=3.5.2',
+    # Exclude MatPlotLib 3.5.2 because it crashes plotting on PySide6.
+    'matplotlib != 3.5.2',
     'scipy',
     'PySide6',
     'qtpy',
