@@ -34,7 +34,8 @@ REQUIRED = [
     'numba',
     'pyzmq',
     'toml',
-    'pywinpty'
+    # PyWinpty is only useful on Windows and requires a Rust toolchain to install on Linux.
+    'pywinpty; os_name=="nt"',
 ]
 
 PYTHON_REQUIRED = '>=3.6'
