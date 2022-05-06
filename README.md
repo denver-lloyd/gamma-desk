@@ -33,10 +33,12 @@ python -m gdesk
 # Dependencies 
 
 `numpy`
+`numba`
 `matplotlib`
 `scipy`
-`PySide2`
+`PySide6` or `PySide2`
 `qtpy`
-`psutils`
+`psutil`
 `pyzmq`
 `toml`
+`imageio`
