@@ -147,7 +147,6 @@ def qimage_to_ndarray(qimg, dtype=None):
     if using_pyside():
         memview = qimg.bits()
         #on pyside image.bits() return an memoryview
-        
     elif using_pyqt():
         ptr = qimg.bits()
         #on pyqt, it is a sip.voidptr
