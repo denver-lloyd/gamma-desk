@@ -36,6 +36,9 @@ REQUIRED = [
     'psutil',
     'pyzmq',
     'toml',
+    # Formlayout with support for PySide6, from
+    # https://github.com/stonebig/formlayout/tree/patch-1
+    'formlayout=1.2.1a1',
     # PyWinpty is only useful on Windows and requires a Rust toolchain to install on Linux.
     'pywinpty; os_name=="nt"',
 ]
